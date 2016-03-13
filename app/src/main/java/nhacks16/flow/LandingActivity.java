@@ -53,7 +53,7 @@ public class LandingActivity extends AppCompatActivity implements View.OnClickLi
     private void displayUserDetails() {
         User user = userLocalStorage.getLoggedInUser();
 
-        ETUserName.setText(user.username);
+        ETUserName.setText(user.userName);
         ETName.setText(user.name);
     }
     @Override

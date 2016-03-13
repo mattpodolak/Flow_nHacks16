@@ -22,7 +22,7 @@ public class UserLocalStorage {
         SharedPreferences.Editor spEditor = userLocalDatabase.edit();
             /* Allows edit what's contained in 'sharedpreferences' to edit local database pre */
         spEditor.putString("name", user.name);
-        spEditor.putString("username", user.username);
+        spEditor.putString("username", user.userName);
         spEditor.putString("password", user.password);
         /* Updates everything in the shared preference with attributes of user which is
         * passed into this method */
@@ -32,9 +32,9 @@ public class UserLocalStorage {
     // This method will return a user and the its attribute's
     public User getLoggedInUser() {
         String name = userLocalDatabase.getString("name", "");
-        String username = userLocalDatabase.getString("username","");
+        String userName = userLocalDatabase.getString("userName","");
         String password = userLocalDatabase.getString("password", "");
-        User storedUser = new User(name, username, password); // <-- see User.Java
+        User storedUser = new User(); // <-- see User.Java
         return storedUser;
 
     }

@@ -5,14 +5,40 @@ package nhacks16.flow;
  */
 public class User {
 /* Creating new users 2 methods */
-    String name, username, password;
+    String name, userName, password;
         //username = email
+    Integer id;
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public User (String name, String username, String password) {
+    public int getId() {
+        return this.id;
+    }
+
+    public void setName(String name) {
         this.name = name;
-        this.username=username;
-        this.password=password;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserName(){
+        return this.userName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }
 

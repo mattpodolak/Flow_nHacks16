@@ -4,4 +4,6 @@
     <string name="title_activity_user_sign_up">Sign Up</string>
     <string name="title_activity_user_login">Login</string>
     <string name="dialog_message"> Passwords do not match </string>
+    <string name="alert_dialog_ok">OK</string>
+    <string name="alert_dialog_cancel">Cancel</string>
 </resources>

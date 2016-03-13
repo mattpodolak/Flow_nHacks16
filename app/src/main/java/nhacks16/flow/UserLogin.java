@@ -1,69 +1,64 @@
 package nhacks16.flow;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class UserLogin extends AppCompatActivity implements View.OnClickListener {
-
-    /* The views for the activity */
-    Button butLogIn;
-    EditText ETUserName, ETPassword;
-    TextView TVSignUpLink;
-    UserLocalStorage userLocalStorage;
-
-
+public class UserLogin extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_login);
+        setContentView(R.layout.content_user_login);
 
-        /* Searches for XML view with these id */
-        ETUserName = (EditText) findViewById(R.id.ETUserName);
-        ETPassword = (EditText) findViewById(R.id.ETPassword);
-        butLogIn = (Button) findViewById(R.id.butLogIn);
-        TVSignUpLink = (TextView) findViewById(R.id.TVSignUpLink);
+        final EditText ETUserName = (EditText) findViewById(R.id.ETUserName);
+        final EditText ETPassword = (EditText) findViewById(R.id.ETPassword);
+        Button butLogin = (Button) findViewById(R.id.butLogIn);
+        final TextView TVSignUpLink = (TextView) findViewById(R.id.TVSignUpLink);
 
-        butLogIn.setOnClickListener(this); // Listen for clicks
-        TVSignUpLink.setOnClickListener(this);
+        butLogin.setOnClickListener(new OnClickListener() {
 
-        userLocalStorage = new UserLocalStorage(this);
-    }
+                                        @Override
+                                        public void onClick(View v) {
+                                            String userName = ETUserName.getText().toString();
+                                            String password = ETPassword.getText().toString();
 
-    /* When Login clicked, Method is notified */
-    @Override
-    public void onClick(View v) {
-        // View var 'v' is arg to switch
-            /* Equiv to:
-                if(v.getId() == R.id.butLogIn) { Then }
-            */
+                                            //case R.id.butLogIn:
+                                            try {
+                                                if (userName.length() > 0 && password.length() > 0) {
+                                                    DBUserAdapter dbUser = new DBUserAdapter(UserLogin.this);
+                                                    dbUser.open();
 
-        switch(v.getId()){
-            case R.id.butLogIn:
-                User user = new User(null, null, null);
-                // When user logs in, local Db must be alerted
-                // that user session is active AND must start storing data
-                // for user
+                                                    if (dbUser.Login(userName, password)) {
+                                                        Toast.makeText(UserLogin.this, "Successfully Logged In", Toast.LENGTH_LONG).show();
 
-                userLocalStorage.setUserLoggedIn(true);
-                userLocalStorage.storeUserData(user);
+                                                    } else {
+                                                        Toast.makeText(UserLogin.this, "Invalid Username or Password", Toast.LENGTH_LONG).show();
+                                                    }
+                                                    dbUser.close();
+                                                }
 
+                                            } catch (Exception e) {
+                                                Toast.makeText(UserLogin.this, e.getMessage(), Toast.LENGTH_LONG).show();
 
-                break;
+                                            }
+                                        }
+                                    });
 
-            //Called when registered link clicked
-            case R.id.TVSignUpLink:
+            TVSignUpLink.setOnClickListener(new OnClickListener() {
+                    public void onClick(View t) {
+                        // case R.id.TVSignUpLink:
+                        //startActivity is built in
+                        Intent myIntent = new Intent(UserLogin.this, userSignUp.class);
+                        startActivity(myIntent);
+                    }
+            });
 
-                //startActivity is built in
-                startActivity(new Intent(this,userSignUp.class));
-                break;
         }
     }
-}
