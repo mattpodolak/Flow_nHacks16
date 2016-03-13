@@ -34,7 +34,6 @@ public class UserLocalStorage {
         String name = userLocalDatabase.getString("name", "");
         String username = userLocalDatabase.getString("username","");
         String password = userLocalDatabase.getString("password", "");
-
         User storedUser = new User(name, username, password); // <-- see User.Java
         return storedUser;
 

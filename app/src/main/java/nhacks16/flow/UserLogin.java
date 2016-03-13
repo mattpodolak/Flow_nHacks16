@@ -47,12 +47,12 @@ public class UserLogin extends AppCompatActivity implements View.OnClickListener
 
         switch(v.getId()){
             case R.id.butLogIn:
-                User user = new User(null, null);
+                User user = new User(null, null, null);
                 // When user logs in, local Db must be alerted
                 // that user session is active AND must start storing data
                 // for user
 
-                userLocalStorage.setUserLoggedIn();
+                userLocalStorage.setUserLoggedIn(true);
                 userLocalStorage.storeUserData(user);
 
 
